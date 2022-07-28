@@ -1,11 +1,7 @@
 import styled, { keyframes } from "styled-components";
-import { Suspense, useEffect, useState } from "react";
-import { motion, useMotionValue, LayoutGroup } from "framer-motion";
-import useMeasure from "react-use-measure";
+import { useEffect, useState } from "react";
+import { motion, LayoutGroup } from "framer-motion";
 import { Link } from "react-router-dom";
-// "axios": "^0.25.0",
-// components
-import { Shapes } from "./Shapes";
 
 const containerVariant = {
   init: {
@@ -31,64 +27,6 @@ const stagger = {
       staggerChildren: 0.2,
     },
   },
-};
-
-const ModelAnimated = () => {
-  const [ref, bounds] = useMeasure({ scroll: false });
-  const [isHover, setIsHover] = useState(false);
-  const [isPress, setIsPress] = useState(false);
-  const [isLoad, setLoad] = useState(true);
-  const mouseX = useMotionValue(200);
-  const mouseY = useMotionValue(0);
-
-  const resetMousePosition = () => {
-    mouseX.set(200);
-    mouseY.set(0);
-  };
-
-  return (
-    <ModelWrapper
-      ref={ref}
-      initial="hiden"
-      animate={isLoad ? "load" : isHover ? "hover" : "rest"}
-      exit="end"
-      whileTap="press"
-      variants={{
-        rest: { scale: 0.8 },
-        hover: { scale: 1.1, y: 0, opacity: 1 },
-        press: { scale: 0.9 },
-        hiden: { y: 60, opacity: 0 },
-        load: { y: 0, opacity: 1, transition: { delay: 1 } },
-        end: { y: 60, opacity: 0 },
-      }}
-      onHoverStart={() => {
-        resetMousePosition();
-        setIsHover(true);
-        setLoad(false);
-      }}
-      onHoverEnd={() => {
-        resetMousePosition();
-        setIsHover(false);
-        setLoad(true);
-      }}
-      onTapStart={() => setIsPress(true)}
-      onTap={() => setIsPress(false)}
-      onTapCancel={() => setIsPress(false)}
-      onPointerMove={(e) => {
-        mouseX.set(e.clientX - bounds.x - bounds.width / 2);
-        mouseY.set(e.clientY - bounds.y - bounds.height / 2);
-      }}
-    >
-      <Suspense fallback={null}>
-        <Shapes
-          isHover={isHover}
-          isPress={isPress}
-          mouseX={mouseX}
-          mouseY={mouseY}
-        />
-      </Suspense>
-    </ModelWrapper>
-  );
 };
 
 const dataMaker = (count, type) => {
@@ -130,11 +68,6 @@ const Home = () => {
   const menuItem = ["3500", "1500", "1200"];
 
   useEffect(() => {
-    // axios
-    //   .get("https://fakestoreapi.com/products")
-    //   .then((res) => res.data)
-    //   .then((json) => setData(json));
-
     if (puffType === "1200") {
       setData(null);
       setTimeout(() => setData(dataMaker(22, puffType)), 200);
@@ -157,7 +90,6 @@ const Home = () => {
       exit="end"
     >
       <Wrapper>
-        {/* <Header /> */}
         <LandingWrapper>
           <LandingMsg
             initial="hiden"
@@ -171,27 +103,8 @@ const Home = () => {
           >
             Одноразовые электронные испарители Avangard
           </LandingMsg>
-          {/* <ModelAnimated /> */}
         </LandingWrapper>
         <ProductNavWrapper>
-          {/* <PuffTypeBtn
-            whileTap={{ scale: 0.95, boxShadow: "0 0 2px 1px #e4685d" }}
-            whileHover={{ scale: 1.05, boxShadow: "0 0 3px 2px #e4685d" }}
-            onClick={() => {
-              isOpen ? setOpen(false) : setOpen(true);
-            }}
-          >
-            <span>{`${puffType} Затяжек`}</span>
-            <motion.img
-              animate={isOpen ? "hover" : "rest"}
-              variants={{
-                rest: { rotate: "180deg" },
-                hover: { rotate: 0 },
-              }}
-              src="./arrow.svg"
-              alt="Button arrow"
-            />
-          </PuffTypeBtn> */}
           <FilterWrapper
             animate={isOpen ? "visable" : "hiden"}
             variants={{
@@ -308,21 +221,6 @@ const LandingWrapper = styled.div`
     flex-direction: column-reverse;
     justify-content: center;
     place-item: flex-start;
-  }
-`;
-
-const ModelWrapper = styled(motion.div)`
-  width: 100%;
-  height: 500px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  place-items: center;
-  color: #fff;
-  cursor: pointer;
-  user-select: none;
-  @media (max-width: 768px) {
-    height: 400px;
   }
 `;
 
@@ -477,28 +375,6 @@ const ProductNavWrapper = styled.div`
   place-item: center;
   padding: 50px 0;
   position: relative;
-`;
-
-const PuffTypeBtn = styled(motion.div)`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  place-items: center;
-  gap: 10px;
-  padding: 10px;
-  border: 1px solid #e4685d;
-  border-radius: 10px;
-  user-select: none;
-  cursor: pointer;
-  span {
-    color: #e4685d;
-    font-size: 1.2rem;
-    padding-bottom: 5px;
-  }
-  img {
-    width: 15px;
-}
-  }
 `;
 
 const FilterWrapper = styled(motion.ul)`
