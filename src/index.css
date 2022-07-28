@@ -1,0 +1,45 @@
+@font-face {
+  font-family: Fnord;
+  src: url("../public/fnord.otf");
+}
+
+@font-face {
+  font-family: Nunito;
+  src: url("../public/Nunito-Bold.ttf");
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Fnord; /* -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  background-color: #343434;
+}
+
+a {
+  text-decoration: none;
+}
+/* 
+a:focus{
+  
+} */
+
+* {
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  background: #fff;
+}
