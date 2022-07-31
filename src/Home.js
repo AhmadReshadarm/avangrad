@@ -63,18 +63,18 @@ const dataMaker = (count, type) => {
 
 const Home = () => {
   const [data, setData] = useState(null);
-  const [puffType, setPuffType] = useState("1500");
+  const [puffType, setPuffType] = useState("4000");
   const [isOpen, setOpen] = useState(false);
-  const menuItem = ["3500", "1500", "1200"];
+  const menuItem = ["3500", "4000", "1200"];
 
   useEffect(() => {
     if (puffType === "1200") {
       setData(null);
       setTimeout(() => setData(dataMaker(22, puffType)), 200);
     }
-    if (puffType === "1500") {
+    if (puffType === "4000") {
       setData(null);
-      setTimeout(() => setData(dataMaker(14, puffType)), 200);
+      setTimeout(() => setData(dataMaker(15, puffType)), 200);
     }
     if (puffType === "3500") {
       setData(null);
